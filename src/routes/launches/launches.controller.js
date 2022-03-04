@@ -7,8 +7,13 @@ const {
   cancelLaunch,
 } = require('../../models/launches.models');
 
+const {
+  getPagination,
+} = require('../../services/query')
+
 async function httpGetAllLaunches(req, res) {
-  return res.status(200).json(await getAllLaunches());
+  const { skip, limit } = getPagination(req.query);
+  return res.status(200).json(await getAllLaunches(skip, limit));
 }
 
 async function httpPostLaunch(req, res) {
